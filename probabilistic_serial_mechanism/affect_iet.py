@@ -95,13 +95,17 @@ while postes_disponibles:
             if (results[student].get(poste) is None):
                 results[student][poste] = 0
             results[student][poste] += temps_min
-            results[student][poste] = round(results[student][poste], 2) 
         
         print(results)
 
         if postes_remaining_capacity[poste] <= 0:
             postes_disponibles.remove(poste)
             print(f"{poste} à été complètement mangé et est retiré des postes disponibles.")
+
+    for student, postes_attribution in results.items():
+        for poste in postes_attribution.keys():
+            postes_attribution[poste] = round(postes_attribution[poste], 4)
+            
 
     with open('resultats.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
@@ -115,4 +119,5 @@ while postes_disponibles:
             for poste in postes_remaining_capacity.keys():
                 row.append(postes.get(poste, 0))  # 0 en valeur par défaut si le poste n'a pas été mangé par l'étudiant
             writer.writerow(row)
+    
     print(postes_remaining_capacity)
