@@ -1,8 +1,4 @@
 
-Dans chaque sous dossier se trouve un algorithme spécifique avec son environnement python qui comprend ses dépendances
-Pour lancer le script activer l'environnement puis executez le affect_iet.py 
+Dans chaque sous dossier se trouve un algorithme spécifique d'affectation des IET
 
-```
-.\venv\Scripts\activate   
-C:/Users/lucile.desfour/Documents/ApplicationInspection/tutorial_env/Scripts/python.exe c:/Users/lucile.desfour/Documents/ApplicationInspection/affectation/probabilistic_serial_mechanism/affect_iet.py
-```
+Chaque algorithme se présente sous la forme d'un script python qui prend en entrée un fichier affectation.csv et doit resulter un csv resultats.csv
