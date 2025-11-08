@@ -1,6 +1,10 @@
 
 import csv
 import random
+import sys
+
+log_file = open("results.log","w")
+sys.stdout = log_file
 
 
 with open('affectation.csv', 'r') as csvfile:
@@ -43,11 +47,11 @@ random.shuffle(postes_disponibles)
 results = {}
 
 for student in student_random_order:
-    print(f"choosing for student {student} between {postes_disponibles}")
-    print(f"ordered choices: {student_choices_ordered[student]}")
+    print(f"choosing for student {student} between {student_choices_ordered[student]}")
     for poste in student_choices_ordered[student]:
         if poste in postes_disponibles:
             results[student] = poste
+            print(f"Student {student} got {poste}")
             postes_disponibles.remove(poste)
             break
     if (student not in results):
@@ -56,3 +60,12 @@ for student in student_random_order:
 print("Results:")
 for student, poste in results.items():
     print(f"{student} -> {poste}")
+
+
+with open('result_affectation.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile, delimiter=';')
+    writer.writerow(['Student', 'Assigned Poste'])
+    for student, poste in results.items():
+        writer.writerow([student, poste])
+
+log_file.close()
