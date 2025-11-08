@@ -1,0 +1,55 @@
+# Choix des modérateurs 
+
+Conformément à ce que l'AG à décidé les groupes seront organisés comme suit : 
+
+* Groupe 1
+Auvernge Rhone Alpes – Bourgogne ; Occitanie ;Normandie; 
+
+* Groupe 2
+Nouvelle Aquitaine; PACA ;Bretagne; 
+
+* Groupe 3 
+Pays de la Loire – Centre Val de Loire ; Grand Est ;Nord; Ile de France;
+
+NB : absence des DROM COM ? 
+
+Un groupe négocie au même créneau horraire 
+
+![alt text](image.png)
+
+### Propositions
+
+* En voyant le nombre de poste par sous groupe je propose de déplacer les **hauts de france** dans le groupe 2 (vert). Sachant qu'en plus des personnes en ile de france pourraient vouloir se deporter en Haut de france et vice versa - à faire voter à la prochaine AG. 
+
+* Faire un sous groupe DROM COM et l'inserer dans un groupe 
+
+## Choix des modérateur.trices par région
+
+sous-groupe : Région ou ensemble de région dans laquelle les IETs négocient (ex : Auvernge Rhone Alpes – Bourgogne ou Bretagne)
+
+* Un IET négociant dans un sous-groupe ne peut pas être appelé à être modérateur sur un sous-groupe du même groupe que lui (même horraire)
+* Dans chaque sous-groupe en fonction de sa taille entre 1 et 3 modérateurs peuvent être désignés
+* Les modérateurs sont en partité dans leur ensemble et au sein d'un même sous-groupe si il y a plusieurs modérateurs
+* Une liste d'IET volontaire est établie et ces IET seront choisis en premiers comme modérateurs.trices si ils répondent aux citères de parité exigés
+* Si les IETs sur la liste de volontaires est insuffisante pour un sous-groupe un.e IET est tiré au sort parmis l'ensemble des IETs 
+
+
+Les sous groupes vont actuellement de 9 a 28 personnes 
+Proposition :
+* 1 moderateur pour moins de 5 IET 
+* 2 modérateurs pour plus de 5 IET et moins de 20 IETS
+* 3 modérateurs pour plus de 20 IETs
+
+
+
+## Algorithme 
+
+Les IETs se positionnent dans un excel dans un ou plusieurs sous groupes 
+
+Un excel avec la liste des IET, la mention de si ils sont volontaires, et leur genre 
+
+Groupes
+Sous_Groupes
+IET_volontaires
+
+
