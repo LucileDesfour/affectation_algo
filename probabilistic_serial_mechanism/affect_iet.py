@@ -129,3 +129,4 @@ with open('result_affectation.csv', 'w', newline='') as csvfile:
         writer.writerow(row)
     
 print(postes_remaining_capacity)
+log_file.close()
