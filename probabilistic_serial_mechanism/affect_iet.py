@@ -1,6 +1,10 @@
 
 import csv
+import sys
+import random
 
+log_file = open("results.log","w")
+sys.stdout = log_file
 
 with open('affectation.csv', 'r') as csvfile:
     reader = csv.reader(csvfile, delimiter=';')  
@@ -33,8 +37,8 @@ print(student_choices_ordered)
 print(postes_disponibles)
 
 # J'ai une liste de postes par etudiant ordonnée par priorité
-# chaque étudiant "mange" son poste préféré encore disponible à chaque itération
-# si plusieurs étudiants veulent le même poste, ils le mangent à part égale
+# chaque étudiant consomme son poste préféré encore disponible à chaque itération
+# si plusieurs étudiants veulent le même poste, ils le consomment à part égale
 
 # Le restulat est une liste des etudiants avec pour chacun la liste des postes et la part correspondante
 results: dict[str, dict[str, float]] = {}
@@ -56,20 +60,25 @@ while postes_disponibles:
     
 
     # je parcours les choix des etudiants et les branche au poste qu'ils préfèrent
+
     for student_name, student_choice in student_choices_ordered.items():
-            # je dois brancher l'étudiant au poste qu'il préfère encore disponible
-            # je prend le premier poste qui est encore dans postes_disponibles dans sa liste de choix ordonnée
-            while student_choice and student_choice[0] not in postes_disponibles:
-                student_choice.pop(0)
+        # je dois brancher l'étudiant au poste qu'il préfère encore disponible
+        # je prend le premier poste qui est encore dans postes_disponibles dans sa liste de choix ordonnée
+        while student_choice and student_choice[0] not in postes_disponibles:
+            student_choice.pop(0)
 
-            if not student_choice or len(student_choice) == 0:
-                continue
-
-            available_choice = student_choice[0]            
-            
+        if not student_choice or len(student_choice) == 0:
+            # Si l'étudiant n'a plus de choix disponibles, on lui assigne un poste au hasard
+            available_choice = random.choice(postes_disponibles)
             postes_currently_eaten_by[available_choice].append(student_name)
-            print(f"{student_name} is eating {available_choice}")
-    
+            print(f"{student_name} est assigne aleatoirement a {available_choice}")
+            continue
+
+        available_choice = student_choice[0]            
+        
+        postes_currently_eaten_by[available_choice].append(student_name)
+        print(f"{student_name} consomme {available_choice}")
+
     print(postes_currently_eaten_by)
 
     # je dois recuperer le temps_min c'est a dire le remaining_capacity / affluence le plus faible pour les postes 
@@ -100,24 +109,23 @@ while postes_disponibles:
 
         if postes_remaining_capacity[poste] <= 0:
             postes_disponibles.remove(poste)
-            print(f"{poste} à été complètement mangé et est retiré des postes disponibles.")
+            print(f"{poste} a ete completement vide et est retire des postes disponibles.")
 
     for student, postes_attribution in results.items():
         for poste in postes_attribution.keys():
             postes_attribution[poste] = round(postes_attribution[poste], 4)
             
 
-    with open('resultats.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=';')
+with open('result_affectation.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile, delimiter=';')
 
-        # J'initie les en-têtes du fichier CSV
-        header = ['IET'] + list(postes_remaining_capacity.keys())
-        writer.writerow(header)
+    header = ['Student'] + list(postes_remaining_capacity.keys())
+    writer.writerow(header)
 
-        for student, postes in results.items():
-            row = [student]
-            for poste in postes_remaining_capacity.keys():
-                row.append(postes.get(poste, 0))  # 0 en valeur par défaut si le poste n'a pas été mangé par l'étudiant
-            writer.writerow(row)
+    for student, postes in results.items():
+        row = student
+        for poste in postes_remaining_capacity.keys():
+            row.append(postes.get(poste, 0))  # 0 en valeur par défaut si le poste n'a pas été mangé par l'étudiant
+        writer.writerow(row)
     
-    print(postes_remaining_capacity)
+print(postes_remaining_capacity)
