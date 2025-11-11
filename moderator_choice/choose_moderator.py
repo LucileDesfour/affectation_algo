@@ -17,7 +17,8 @@ with open('IET.csv', 'r') as csvfile:
             moderators[name] = {
                 'volunteer': int(row[1]),
                 'gender': row[2],
-                'groups': row[3].split(',')
+                'groups': row[3].split(','),
+                'sub_group_conflict': row[4].split(',') if len(row) > 4 else []
             }
 
 moderator_items = list(moderators.items())
@@ -31,10 +32,11 @@ with open('groupes.csv', 'r') as csvfile:
     sous_groupes = {}
     for row in reader:
         if len(row) >= 3:  
-            sous_groupe = row[0]
+            sous_groupe = row[1]
             sous_groupes[sous_groupe] = {
-                'groupe': int(row[1]),
-                'nb_postes': int(row[2])
+                'id': row[0],
+                'groupe': int(row[2]),
+                'nb_postes': int(row[3])
             }
 
 # Assign moderators to subgroups
@@ -45,6 +47,8 @@ for sous_groupe, details in sous_groupes.items():
     gender = "M"
     nb_posts = details['nb_postes']
     groupe = details['groupe']
+    ids_sub_group = details['id']
+
     
     # Determine number of moderators needed
     if nb_posts < 5:
@@ -58,7 +62,7 @@ for sous_groupe, details in sous_groupes.items():
     # Eligible moderators are those who are not in the same groupe as the sub groupe and are not already assigned
     eligible_mods = {
         name: mod for name, mod in moderators.items()
-        if str(groupe) not in mod['groups'] and name not in [m for mods in assignments.values() for m in mods]
+        if str(groupe) not in mod['groups']  and ids_sub_group not in mod['sub_group_conflict'] and name not in [m for mods in assignments.values() for m in mods]
     }
 
     print(f"Sous groupe {sous_groupe} (groupe {groupe}) a besoin de {nb_mods_needed} moderateurs. Eligible: {list(eligible_mods.keys())}")
